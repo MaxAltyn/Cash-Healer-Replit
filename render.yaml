@@ -2,9 +2,11 @@ services:
   - type: web
     name: cash-healer-bot
     env: node
-    buildCommand: npm run build
+    buildCommand: chmod +x render-build.sh && ./render-build.sh
     startCommand: npm start
     envVars:
+      - key: NODE_ENV
+        value: production
       - key: BOT_TOKEN
         sync: false
       - key: TELEGRAM_BOT_TOKEN
@@ -13,8 +15,6 @@ services:
         fromDatabase:
           name: cash-healer-db
           property: connectionString
-      - key: NODE_ENV
-        value: production
       - key: MASTRA_HIDE_CLOUD_CTA
         value: "true"
       - key: YOOKASSA_SHOP_ID
@@ -25,9 +25,4 @@ services:
         value: "true"
       - key: YOOKASSA_MOCK_MODE
         value: "true"
-      - key: AI_INTEGRATIONS_OPENAI_BASE_URL
-        sync: false
-      - key: AI_INTEGRATIONS_OPENAI_API_KEY
-        sync: false
     healthCheckPath: /
-    autoDeploy: true
