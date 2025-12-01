@@ -9,7 +9,7 @@
     "start": "NODE_ENV=production node dist/index.mjs",
     "dev": "mastra dev",
     "check": "tsc --noEmit",
-    "migrate": "drizzle-kit migrate"
+    "migrate": "drizzle-kit migrate",
     "test:build": "npm run build && ls -la dist/"
   },
   "dependencies": {
