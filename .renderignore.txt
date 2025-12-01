@@ -1,0 +1,8 @@
+node_modules/
+.mastra/
+dist/
+.env
+*.log
+.DS_Store
+*.md
+.git/
