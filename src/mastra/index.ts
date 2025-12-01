@@ -14,23 +14,10 @@ import { telegramBotWorkflow } from "./workflows/telegramBotWorkflow";
 import { financialBotAgent } from "./agents/financialBotAgent";
 import { registerTelegramTrigger } from "../triggers/telegramTriggers";
 import { financialModelingHtml } from "./financialModelingHtml";
-import { getBaseUrl, isProduction } from './fix-for-render';
-import * as fs from "fs";
+import { getBaseUrl } from './fix-for-render';
 import * as path from "path";
-import * as url from "url";
 
 // Import tools
-import { sendTelegramMessage } from "./tools/telegramTools";
-import { createYooKassaPayment, checkYooKassaPayment } from "./tools/yookassaTools";
-import {
-  createOrUpdateUserTool,
-  getUserByTelegramIdTool,
-  getUserOrdersTool,
-  getOrderByIdTool,
-  updateOrderStatusTool,
-  createOrderWithPaymentTransactionTool,
-  getPendingOrdersTool,
-} from "./tools/databaseTools";
 
 class ProductionPinoLogger extends MastraLogger {
   protected logger: pino.Logger;
@@ -90,7 +77,7 @@ async function setupTelegramWebhookOnStart() {
   await new Promise(resolve => setTimeout(resolve, 2000));
 
   try {
-    const domain = process.env.REPLIT_DOMAINS || process.env.REPLIT_DEV_DOMAIN;
+    const domain = getBaseUrl();
     if (!domain) {
       console.warn("⚠️ [Telegram] No domain found (REPLIT_DOMAINS or REPLIT_DEV_DOMAIN), skipping webhook setup");
       return;
