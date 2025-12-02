@@ -1,45 +1,20 @@
-// index.js - главный файл для Render
+// index.js - Стартовый файл для Railway (CommonJS)
 console.log('🚀 Starting Cash Healer Bot...');
 
-// Проверяем сборку
-const fs = require('fs');
-const path = require('path');
+// Загружаем .env файл если есть
+require('dotenv').config();
 
-const distPath = path.join(__dirname, 'dist');
+// Проверяем обязательные переменные
+const requiredVars = ['TELEGRAM_BOT_TOKEN', 'PORT'];
+const missingVars = requiredVars.filter(varName => !process.env[varName]);
 
-// Если есть dist/index.mjs - запускаем его
-if (fs.existsSync(path.join(distPath, 'index.mjs'))) {
-  console.log('✅ Found dist/index.mjs');
-  require('child_process').spawn('node', ['dist/index.mjs'], {
-    stdio: 'inherit',
-    shell: true
-  });
-} 
-// Если есть dist/index.js - запускаем его
-else if (fs.existsSync(path.join(distPath, 'index.js'))) {
-  console.log('✅ Found dist/index.js');
-  require('child_process').spawn('node', ['dist/index.js'], {
-    stdio: 'inherit',
-    shell: true
-  });
+if (missingVars.length > 0) {
+  console.error(`❌ Отсутствуют обязательные переменные: ${missingVars.join(', ')}`);
+  process.exit(1);
 }
-// Если нет dist - создаем простой сервер
-else {
-  console.log('⚠️ No dist folder, starting fallback server');
-  
-  const express = require('express');
-  const app = express();
-  const PORT = process.env.PORT || 3000;
-  
-  app.get('/', (req, res) => {
-    res.json({
-      status: 'Cash Healer Bot - Fallback',
-      time: new Date().toISOString(),
-      message: 'Application is building...'
-    });
-  });
-  
-  app.listen(PORT, () => {
-    console.log(`✅ Fallback server on port ${PORT}`);
-  });
-}
+
+// Динамически импортируем ES модуль
+import('./dist/index.mjs').catch(error => {
+  console.error('❌ Ошибка при импорте ES модуля:', error);
+  process.exit(1);
+});
