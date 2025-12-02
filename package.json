@@ -5,8 +5,9 @@
   "main": "dist/index.mjs",
   "scripts": {
     "build": "rm -rf dist && mastra build",
-    "start": "node dist/index.mjs",
+    "start": "NODE_ENV=production node dist/index.mjs",
     "dev": "mastra dev",
+    "predeploy": "npm run build",
     "railway:setup": "npm install && npm run build"
   },
   "engines": {
