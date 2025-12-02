@@ -1,0 +1,18 @@
+[build]
+builder = "nixpacks"
+buildCommand = "npm run build"
+startCommand = "npm start"
+
+[build.environment]
+NODE_ENV = "production"
+
+[variables]
+NODE_ENV = "production"
+BOT_TOKEN = ""
+TELEGRAM_BOT_TOKEN = ""
+DATABASE_URL = ""
+MASTRA_HIDE_CLOUD_CTA = "true"
+YOOKASSA_SHOP_ID = "381764678"
+YOOKASSA_SECRET_KEY = "test_148680"
+YOOKASSA_TEST_MODE = "true"
+YOOKASSA_MOCK_MODE = "true"
