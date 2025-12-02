@@ -3,15 +3,10 @@ builder = "nixpacks"
 buildCommand = "npm run build"
 
 [deploy]
-startCommand = "node index.js"
+startCommand = "npm start"
 healthcheckPath = "/"
-healthcheckTimeout = 60
-restartPolicyType = "on_error"
-restartPolicyMaxRetries = 3
-
-[build.environment]
-NODE_ENV = "production"
-PORT = "3000"
+healthcheckTimeout = 30
+restartPolicyType = "always"
 
 [variables]
 PORT = "3000"
