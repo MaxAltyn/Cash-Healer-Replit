@@ -191,6 +191,14 @@ export const mastra = new Mastra({
       // Inngest Integration Endpoint
       // ======================================================================
       // This API route is used to register the Mastra workflow (inngest function) on the inngest server
+      // Добавьте в секцию apiRoutes:
+      {
+        path: "/",
+        method: "GET",
+        createHandler: async () => async (c) => {
+          return c.text("Cash Healer Bot is running!", 200);
+        },
+      },
       {
         path: "/api/inngest",
         method: "ALL",
