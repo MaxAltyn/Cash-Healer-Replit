@@ -77,10 +77,18 @@ async function setupTelegramWebhookOnStart() {
   await new Promise(resolve => setTimeout(resolve, 2000));
 
   try {
-    const domain = getBaseUrl();
+    // Railway автоматически предоставляет URL
+    let domain = process.env.RAILWAY_STATIC_URL || 
+                 process.env.RAILWAY_PUBLIC_DOMAIN;
+    
     if (!domain) {
-      console.warn("⚠️ [Telegram] No domain found (REPLIT_DOMAINS or REPLIT_DEV_DOMAIN), skipping webhook setup");
+      console.warn("⚠️ [Telegram] No Railway domain found, skipping webhook setup");
       return;
+    }
+    
+    // Убедимся что это полный URL
+    if (!domain.startsWith('http')) {
+      domain = `https://${domain}`;
     }
 
     const webhookUrl = `https://${domain}/api/webhooks/telegram/action`;
