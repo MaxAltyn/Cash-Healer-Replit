@@ -14,7 +14,6 @@ import { telegramBotWorkflow } from "./workflows/telegramBotWorkflow";
 import { financialBotAgent } from "./agents/financialBotAgent";
 import { registerTelegramTrigger } from "../triggers/telegramTriggers";
 import { financialModelingHtml } from "./financialModelingHtml";
-import { getBaseUrl } from './fix-for-render';
 import * as path from "path";
 
 // Import tools
